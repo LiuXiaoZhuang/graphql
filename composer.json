@@ -1,5 +1,5 @@
 {
-    "name": "hyperf/graphql",
+    "name": "peer/graphql",
     "description": "A GraphQL component for hyperf.",
     "license": "MIT",
     "keywords": [
