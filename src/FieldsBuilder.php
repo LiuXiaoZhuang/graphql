@@ -49,7 +49,7 @@ use TheCodingMachine\GraphQLite\Mappers\CannotMapTypeExceptionInterface;
 use TheCodingMachine\GraphQLite\Mappers\RecursiveTypeMapperInterface;
 use TheCodingMachine\GraphQLite\MissingAnnotationException;
 use TheCodingMachine\GraphQLite\NamingStrategyInterface;
-use TheCodingMachine\GraphQLite\QueryField;
+use Hyperf\GraphQL\QueryField;
 use TheCodingMachine\GraphQLite\Reflection\CachedDocBlockFactory;
 use TheCodingMachine\GraphQLite\Security\AuthenticationServiceInterface;
 use TheCodingMachine\GraphQLite\Security\AuthorizationServiceInterface;
@@ -279,6 +279,17 @@ class FieldsBuilder
                 if ($injectSource === true) {
                     $first_parameter = array_shift($parameters);
                     // TODO: check that $first_parameter type is correct.
+                }
+
+                /**
+                 * 这里是对注入参数的一个忽略
+                 * graphql 对应的 resolve 方法里面会注入 $value,$args,$context, ResolveInfo $info
+                 * 弥补了因为缺少 $info 而无法处理 过度查询的问题
+                 * author peer <595819923@qq.com>
+                 * 2019-11-14
+                 */
+                if(count($parameters)>0 && $parameters[0]->getType() == \GraphQL\Type\Definition\ResolveInfo::class){
+                        $info_parameter = array_shift($parameters);
                 }
 
                 $args = $this->mapParameters($parameters, $docBlockObj);
