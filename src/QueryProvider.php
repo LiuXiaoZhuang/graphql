@@ -17,7 +17,7 @@ use Hyperf\GraphQL\Annotation\Mutation;
 use Hyperf\GraphQL\Annotation\Query;
 use Psr\Container\ContainerInterface;
 use TheCodingMachine\GraphQLite\Mappers\RecursiveTypeMapperInterface;
-use Hyperf\GraphQL\QueryField;
+use TheCodingMachine\GraphQLite\QueryField;
 use TheCodingMachine\GraphQLite\QueryProviderInterface;
 
 class QueryProvider implements QueryProviderInterface
